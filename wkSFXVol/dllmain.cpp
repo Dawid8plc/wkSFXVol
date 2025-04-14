@@ -133,9 +133,9 @@ __declspec(naked) void CreateSndBufferHook() {
 
 		call SetVolumeDirect
 
-        pop eax
-        pop ecx
         pop edx
+        pop ecx
+        pop eax
 
         mov edi, eax
 
