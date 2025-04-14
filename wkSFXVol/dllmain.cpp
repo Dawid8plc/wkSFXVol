@@ -68,8 +68,6 @@ void SetVolumeDirect() {
         float subtractValue = 415 * log10(txtValue / 100.0f) + 415;
         int newValue = round(20 * log10(txtValue / 100.0f) * 100 - subtractValue);
 
-        //long adjustedVolume = -formula + ((-415 - (-formula)) * (volume / 100.0f));
-
         (*DSndBuf)->SetVolume(newValue);
     }
 }
@@ -106,7 +104,6 @@ HRESULT __fastcall DSoundSetVol(int32_t arg1, void* ebx, IDirectSoundBuffer* arg
             float subtractValue = posVolume * log10(txtValue / 100.0f) + posVolume;
             int newValue = round(20 * log10(txtValue / 100.0f) * 100 - subtractValue);
 
-            //long adjustedVolume = -formula + ((gameVolume - (-formula)) * (volume / 100.0f));
             arg2->SetVolume(newValue);
         }
     }
@@ -242,7 +239,7 @@ void MonitorDirectoryThread(void* data) {
     CloseHandle(directoryHandle);
 }
 
-void MonitorDirectory(const wchar_t* directoryPath, const wchar_t* targetFileName, const wchar_t* targetFileName2)
+void MonitorDirectory(const wchar_t* directoryPath, const wchar_t* targetFileName)
 {
     // Create a directory handle
     HANDLE directoryHandle = CreateFileW(
@@ -308,12 +305,11 @@ BOOL APIENTRY DllMain( HMODULE hModule,
 
         }
 
-        //Gets the current working directory, and creates a path containing it and the volumeBGM.txt file that we want to monitor for changes
+        //Gets the current working directory, and creates a path containing it and the volumeSFX.txt file that we want to monitor for changes
         wchar_t directoryPath[1024];
         _wgetcwd(directoryPath, sizeof(directoryPath) / sizeof(directoryPath[0]));
         const wchar_t* targetFileName = L"volumeSFX.txt";
-        const wchar_t* targetFileName2 = L"formula.txt";
-        MonitorDirectory(directoryPath, targetFileName, targetFileName2);
+        MonitorDirectory(directoryPath, targetFileName);
 
         //Load the volume
         setVolume();
