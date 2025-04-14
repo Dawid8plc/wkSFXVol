@@ -43,7 +43,6 @@ void PatchMemory(uintptr_t targetAddress, void* value, int codeSize)
 LPDIRECTSOUNDBUFFER* DSndBuf;
 
 int volume = 100;
-int formula = 5000;
 
 void SetVolumeDirect() {
 	if (DSndBuf == NULL) return;
